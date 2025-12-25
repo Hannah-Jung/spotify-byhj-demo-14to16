@@ -5,6 +5,7 @@ import {
   Menu,
   MenuItem,
   styled,
+  Tooltip,
 } from "@mui/material";
 import useGetCurrentUserProfile from "../../hooks/useGetCurrentUserProfile";
 import LoginButton from "../../common/components/LoginButton";
@@ -56,12 +57,14 @@ const Navbar = () => {
     <Box display='flex' justifyContent="flex-end" alignItems="center" height="64px">
       {isLoading || userProfile ? (
         <ProfileContainer>
-          <IconButton onClick={handleMenuOpen} size="small">
-            <Avatar
-              src={userProfile?.images[0]?.url || "/default-avatar.png"} 
-              alt={userProfile?.display_name}
-            />
-          </IconButton>
+          <Tooltip title={userProfile?.display_name || "User"} arrow>
+            <IconButton onClick={handleMenuOpen} size="small">
+              <Avatar
+                src={userProfile?.images[0]?.url || "/default-avatar.png"} 
+                alt={userProfile?.display_name}
+              />
+            </IconButton>
+          </Tooltip>
           <ProfileMenu
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
