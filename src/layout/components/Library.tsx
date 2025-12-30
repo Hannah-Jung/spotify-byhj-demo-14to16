@@ -9,21 +9,20 @@ import { useInView } from 'react-intersection-observer'
 import { useEffect } from 'react'
 
 const Library = () => {  
-  const {data:user} = useGetCurrentUserProfile()
-  if (!user) return <EmptyPlaylist/>
-  const { ref, inView } = useInView({
-  rootMargin: '100px',threshold: 0});
+  const {data:user} = useGetCurrentUserProfile()  
+  const { ref, inView } = useInView({rootMargin: '100px',threshold: 0});
   const {data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage} = useGetCurrentUserPlaylists({limit:10, offset:0})
   
+  if (!user) return <EmptyPlaylist/>
+  if (isLoading) return <LoadingSpinner/>
+  if (error) return <ErrorMessage errorMessage={error.message}/>
+
   useEffect(()=> {    
     if(inView && hasNextPage && !isFetchingNextPage){
       fetchNextPage()
     }
   // },[inView, fetchNextPage, hasNextPage, isFetchingNextPage])
-  },[inView, hasNextPage, isFetchingNextPage])
-  
-  if (isLoading) return <LoadingSpinner/>
-  if (error) return <ErrorMessage errorMessage={error.message}/>
+  },[inView, hasNextPage, isFetchingNextPage])  
 
   const playlists = data?.pages.flatMap(page => page.items) || []
   return (
