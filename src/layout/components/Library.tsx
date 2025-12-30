@@ -31,7 +31,7 @@ const Library = () => {
       {playlists.length === 0 ? (<EmptyPlaylist/>) : (
         <>
           <Playlist playlists={playlists} />
-          <div ref={ref}>{isFetchingNextPage && <LoadingSpinner/>}</div>      
+          <div ref={ref} style={{ minHeight: '1px' }}>{isFetchingNextPage && <LoadingSpinner/>}</div>      
         </>
       )}      
     </div>    
