@@ -13,16 +13,16 @@ const Library = () => {
   const { ref, inView } = useInView({rootMargin: '100px',threshold: 0});
   const {data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage} = useGetCurrentUserPlaylists({limit:10, offset:0})
   
-  if (!user) return <EmptyPlaylist/>
-  if (isLoading) return <LoadingSpinner/>
-  if (error) return <ErrorMessage errorMessage={error.message}/>
-
   useEffect(()=> {    
     if(inView && hasNextPage && !isFetchingNextPage){
       fetchNextPage()
     }
   // },[inView, fetchNextPage, hasNextPage, isFetchingNextPage])
-  },[inView, hasNextPage, isFetchingNextPage])  
+  },[inView, hasNextPage, isFetchingNextPage]) 
+
+  if (!user) return <EmptyPlaylist/>
+  if (isLoading) return <LoadingSpinner/>
+  if (error) return <ErrorMessage errorMessage={error.message}/>   
 
   const playlists = data?.pages.flatMap(page => page.items) || []
   return (
