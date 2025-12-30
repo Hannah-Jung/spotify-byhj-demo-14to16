@@ -10,7 +10,7 @@ import { useEffect } from 'react'
 
 const Library = () => {  
   const {data:user} = useGetCurrentUserProfile()  
-  const { ref, inView } = useInView({rootMargin: '100px',threshold: 0});
+  const { ref, inView } = useInView({rootMargin: '0px 0px 500px 0px', threshold: 0});
   const {data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage} = useGetCurrentUserPlaylists({limit:10, offset:0})
   
   useEffect(()=> {    
